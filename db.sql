@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2020 at 07:29 PM
+-- Generation Time: Dec 21, 2020 at 12:13 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -40,9 +40,8 @@ CREATE TABLE `channel` (
 --
 
 INSERT INTO `channel` (`channelno`, `doctorname`, `patientname`, `roomno`, `date`) VALUES
-('CH001', 'DS001', 'PS001', 5, '2020-12-10'),
-('CH002', 'DS002', 'PS002', 3, '2020-12-08'),
-('CH003', 'DS001', 'PS002', 5, '2020-12-25');
+('CH001', 'DS001', 'PS001', 3, '2020-12-02'),
+('CH002', 'DS002', 'PS002', 8, '2020-12-06');
 
 -- --------------------------------------------------------
 
@@ -66,8 +65,8 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`doctorno`, `name`, `special`, `qualification`, `channelfee`, `phone`, `room`, `log_id`) VALUES
-('DS001', 'vaibhav ', 'heart haxor', 'mbbs', 12312, 123, 4, 2),
-('DS002', 'tarun', 'haxor', 'qweqw', 21, 321, 4, 3);
+('DS001', 'vaibhav ', 'Dentist', 'BDS', 500, 9898989898, 4, 2),
+('DS002', 'tarun', 'Heart', 'MBBS', 500, 7412589637, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -89,7 +88,8 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`itemid`, `itemname`, `description`, `sellprice`, `buyprice`, `qty`) VALUES
-('MD001', 'lsd', 'lsd', 16, 10, 500);
+('MD001', 'lsd', 'lsd', 16, 10, 332),
+('MD002', 'Cough Syrup', 'for throat infection', 15, 10, 942);
 
 -- --------------------------------------------------------
 
@@ -109,8 +109,8 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patientno`, `name`, `phone`, `address`) VALUES
-('PS001', 'shubham giri', 12312, 'iphone'),
-('PS002', 'taski', 12312, 'noida');
+('PS001', 'Sahil', 12312, '31231'),
+('PS002', 'Abhinav', 1231, '23221');
 
 -- --------------------------------------------------------
 
@@ -123,16 +123,16 @@ CREATE TABLE `prescription` (
   `channelid` varchar(255) NOT NULL,
   `doctorname` varchar(255) NOT NULL,
   `detype` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `description` varchar(255) NOT NULL,
+  `patientname` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `prescription`
 --
 
-INSERT INTO `prescription` (`pid`, `channelid`, `doctorname`, `detype`, `description`) VALUES
-('PC001', 'CH002', 'CH002', 'Malaria', 'Dead in 2 weeks '),
-('PC002', 'CH002', 'CH002', 'idk', 'Dead lmao');
+INSERT INTO `prescription` (`pid`, `channelid`, `doctorname`, `detype`, `description`, `patientname`) VALUES
+('PC001', 'CH001', 'vaibhav ', 'Covid', 'dollo', 'Sahil');
 
 -- --------------------------------------------------------
 
@@ -153,9 +153,9 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `date`, `subtotal`, `pay`, `balance`) VALUES
-(1, '2020-12-07', 96, 100, 4),
-(2, '2020-12-07', 160, 200, 40),
-(3, '2020-12-07', 80, 100, 20);
+(35, '2020-12-21', 139, 200, 61),
+(36, '2020-12-21', 80, 1000, 920),
+(37, '2020-12-21', 45, 100, 55);
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,13 @@ CREATE TABLE `sale_product` (
 --
 
 INSERT INTO `sale_product` (`id`, `sales_id`, `prod_id`, `sellprice`, `qty`, `total`) VALUES
-(1, 3, 'MD001', 5, 16, 80);
+(37, 32, 'MD002', 15, 5, 75),
+(38, 33, 'MD002', 15, 1, 15),
+(39, 34, 'MD002', 15, 3, 45),
+(40, 35, 'MD002', 15, 5, 75),
+(41, 35, 'MD001', 16, 4, 64),
+(42, 36, 'MD001', 16, 5, 80),
+(43, 37, 'MD002', 15, 3, 45);
 
 -- --------------------------------------------------------
 
@@ -201,7 +207,9 @@ INSERT INTO `user` (`id`, `name`, `username`, `password`, `utype`) VALUES
 (1, 'ram', 'ram', '1234', 'Receptionist'),
 (2, 'vaibhav', 'vaibhav', '1234', 'Doctor'),
 (3, 'tarun', 'tarun', '1234', 'Doctor'),
-(5, 'phar', 'phar', '1234', 'Pharmacist');
+(5, 'phar', 'phar', '1234', 'Pharmacist'),
+(7, 'Williams', 'daniel', '1234', 'ADMIN'),
+(15, 'ewe', 'wewe', 'wewqqweqweqweqw', 'Doctor');
 
 --
 -- Indexes for dumped tables
@@ -263,19 +271,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `sale_product`
 --
 ALTER TABLE `sale_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
